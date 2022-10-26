@@ -14,11 +14,13 @@ TimeSeries = 0
 
 def StockFunc():
     global Symbol
+    global StockData
     print("Stock Data Visualizer")
     print("-----------------------")
     while StockData != "n":
         if StockData !="y" and StockData !="n":
             print("Error Data Type Invalid. Please enter 'y' or 'n'")
+            StockData = input("Would you like to view more stock data? Press 'y' to continue or 'n' to exit: ")
         else:
             StockSymbol = input("Enter the stock symbol you are looking for: ")
             if StockSymbol == "":
