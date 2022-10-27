@@ -63,12 +63,10 @@ def StockFunc():
                                             High.append(int(float(TimeSeries[i]['2. high'])))
                                             Low.append(int(float(TimeSeries[i]['3. low'])))
                                             Close.append(int(float(TimeSeries[i]['4. close'])))
-                                            print(TimeSeries[i]['1. open'])
                                         bar_chart.add('Open', Open)
                                         bar_chart.add('High', Close)
                                         bar_chart.add('Low', Low)
                                         bar_chart.add('close', Close)
-
                                         bar_chart.render_in_browser()
                                         break
 
@@ -89,12 +87,10 @@ def StockFunc():
                                             High.append(int(float(TimeSeries[i]['2. high'])))
                                             Low.append(int(float(TimeSeries[i]['3. low'])))
                                             Close.append(int(float(TimeSeries[i]['4. close'])))
-                                            print(TimeSeries[i]['1. open'])
                                         bar_chart.add('Open', Open)
                                         bar_chart.add('High', Close)
                                         bar_chart.add('Low', Low)
                                         bar_chart.add('close', Close)
-
                                         bar_chart.render_in_browser()
                                         break
                                     
@@ -115,12 +111,10 @@ def StockFunc():
                                             High.append(int(float(TimeSeries[i]['2. high'])))
                                             Low.append(int(float(TimeSeries[i]['3. low'])))
                                             Close.append(int(float(TimeSeries[i]['4. close'])))
-                                            print(TimeSeries[i]['1. open'])
                                         bar_chart.add('Open', Open)
                                         bar_chart.add('High', Close)
                                         bar_chart.add('Low', Low)
                                         bar_chart.add('close', Close)
-
                                         bar_chart.render_in_browser()
                                         break
                                         
@@ -141,12 +135,10 @@ def StockFunc():
                                             High.append(int(float(TimeSeries[i]['2. high'])))
                                             Low.append(int(float(TimeSeries[i]['3. low'])))
                                             Close.append(int(float(TimeSeries[i]['4. close'])))
-                                            print(TimeSeries[i]['1. open'])
                                         bar_chart.add('Open', Open)
                                         bar_chart.add('High', Close)
                                         bar_chart.add('Low', Low)
                                         bar_chart.add('close', Close)
-
                                         bar_chart.render_in_browser()
                                         break
                                         
@@ -185,12 +177,10 @@ def StockFunc():
                                                     High.append(int(float(TimeSeries[i]['2. high'])))
                                                     Low.append(int(float(TimeSeries[i]['3. low'])))
                                                     Close.append(int(float(TimeSeries[i]['4. close'])))
-                                                    print(TimeSeries[i]['1. open'])
                                                 line_chart.add('Open', Open)
                                                 line_chart.add('High', Close)
                                                 line_chart.add('Low', Low)
                                                 line_chart.add('close', Close)
-
                                                 line_chart.render_in_browser()
                                                 break
 
@@ -211,12 +201,10 @@ def StockFunc():
                                                     High.append(int(float(TimeSeries[i]['2. high'])))
                                                     Low.append(int(float(TimeSeries[i]['3. low'])))
                                                     Close.append(int(float(TimeSeries[i]['4. close'])))
-                                                    print(TimeSeries[i]['1. open'])
                                                 line_chart.add('Open', Open)
                                                 line_chart.add('High', Close)
                                                 line_chart.add('Low', Low)
                                                 line_chart.add('close', Close)
-
                                                 line_chart.render_in_browser()
                                                 break
                                             
@@ -237,12 +225,10 @@ def StockFunc():
                                                     High.append(int(float(TimeSeries[i]['2. high'])))
                                                     Low.append(int(float(TimeSeries[i]['3. low'])))
                                                     Close.append(int(float(TimeSeries[i]['4. close'])))
-                                                    print(TimeSeries[i]['1. open'])
                                                 line_chart.add('Open', Open)
                                                 line_chart.add('High', Close)
                                                 line_chart.add('Low', Low)
                                                 line_chart.add('close', Close)
-
                                                 line_chart.render_in_browser()
                                                 break
                                                 
@@ -263,15 +249,12 @@ def StockFunc():
                                                     High.append(int(float(TimeSeries[i]['2. high'])))
                                                     Low.append(int(float(TimeSeries[i]['3. low'])))
                                                     Close.append(int(float(TimeSeries[i]['4. close'])))
-                                                    print(TimeSeries[i]['1. open'])
                                                 line_chart.add('Open', Open)
                                                 line_chart.add('High', Close)
                                                 line_chart.add('Low', Low)
                                                 line_chart.add('close', Close)
-
                                                 line_chart.render_in_browser()
                                                 break
-                                                
                                         except:
                                             print("Select the Time Series of the chart you want to Generate")
                                             print("-----------------------")
