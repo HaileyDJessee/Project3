@@ -77,7 +77,6 @@ def LineChart():
     line_chart.add('Low', Low)
     line_chart.add('close', Close)
     line_chart.render_in_browser()
-    
 def StockFunc():
     
     global ChartChoice
