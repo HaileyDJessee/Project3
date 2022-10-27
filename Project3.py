@@ -1,26 +1,27 @@
-print("Stock Data Visualizer")
-print("-----------------------")
+def getStartDate(data, startDate):
+    try:
+        return list(data).index(startDate)
+    except:
+        dateArray = startDate.split('-')
+        dateNum = int(dateArray[2])
+        if dateNum == 31:
+            dateNum = 1
+        else:
+            dateNum = dateNum + 1
+        getStartDate(data, dateArray[0] + '-' + dateArray[1] + '-' + str(dateNum))
 
-StockSymbol = input("Enter the stock symbol you are looking for: ")
-
-print("Chart Types")
-print("-----------------------")
-print("1. Bar")
-print("2. Line")
-
-ChartType = input("Enter the chart type you want (1, 2):")
-
-print("Select the Time Series of the chart you want to Generate")
-print("-----------------------")
-print("1. Intraday")
-print("2. Daily")
-print("3. Weekly")
-print("4. Monthly")
-
-TimeSeries = input("Enter time series option (1, 2, 3, 4):")
-
-StartDate = input("Enter the start date (YYYY-MM-DD):")
-
-EndDate = input("Enter the end date (YYYY-MM-DD):")
-
-MoreData = input("Would you like to view more stock data? Press 'y' to continue: ")
+def getEndDate(data, endDate):
+    try:
+        return list(data).index(endDate)
+    except:
+        dateArray = endDate.split('-')
+        dateNum = int(dateArray[2])
+        if dateNum == 1:
+            dateNum = 31
+        else:
+            dateNum = dateNum - 1
+        getEndDate(data, dateArray[0] + '-' + dateArray[1] + '-' + str(dateNum))
+        
+#How to use:
+# Index = list(StepData).index(getStartDate(StepData, input('Please enter Start Date: ')))
+# Index2 = list(StepData).index(getEndDate(StepData, input('Please enter End Date: ')))
