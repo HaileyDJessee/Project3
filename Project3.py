@@ -2,8 +2,6 @@ import requests
 import pygal
 import json
 
-
-
 ChartChoice = 0
 ChartType = ["pygal.Bar(fill=True)", "pygal.Line(fill=False)"]
 DateChoice = ""
@@ -27,34 +25,47 @@ def PopChart():
     global High
     global Low
     global Open
+    global Input
+    global SecondInput
 
-    try:  
-        Input=(input('Please enter Start Date: '))
-        if (Input in list(StepData)):
-            Index = list(StepData).index(Input)
+    try: 
+        Input=(input('Please enter Start Date (YYYY-MM-DD): '))
+        while Input =="":
+            Input=(input('Please enter Start Date (YYYY-MM-DD): '))
+        if Input =="":
+            print('Please enter Start Date (YYYY-MM-DD): ')
         else:
-            while (Input in list(StepData)) == False:
-                dateArray = Input.split('-')
-                dateNum = int(dateArray[2])
-                if dateNum == 31:
-                    dateNum = 1
-                else:
-                    dateNum = dateNum + 1
-                    Input = (dateArray[0] + '-' + dateArray[1] + '-' + str(dateNum).zfill(2))
-            Index = list(StepData).index(Input)
-        SecondInput=(input('Please enter End Date: '))
-        if (SecondInput in list(StepData)):
-            Index2 = list(StepData).index(SecondInput)
+            if (Input in list(StepData)):
+                Index = list(StepData).index(Input)
+            else:
+                while (Input in list(StepData)) == False:
+                    dateArray = Input.split('-')
+                    DayNum = int(dateArray[2])
+                    if DayNum == 31:
+                        DayNum = 1
+                    else:
+                        DayNum = DayNum + 1
+                        Input = (dateArray[0] + '-' + dateArray[1] + '-' + str(DayNum).zfill(2))
+                Index = list(StepData).index(Input)
+        SecondInput=(input('Please enter End Date (YYYY-MM-DD): '))
+        while SecondInput =="":
+            SecondInput=(input('Please enter End Date (YYYY-MM-DD): '))
+        if SecondInput =="":
+            print('Please enter Start Date (YYYY-MM-DD): ')
         else:
-            while (SecondInput in list(StepData)) == False:
-                dateArray = SecondInput.split('-')
-                dateNum = int(dateArray[2])
-                if dateNum == 31:
-                    dateNum = 1
-                else:
-                    dateNum = dateNum + 1
-                    SecondInput = (dateArray[0] + '-' + dateArray[1] + '-' + str(dateNum).zfill(2))
-            Index2 = list(StepData).index(SecondInput)
+            if (SecondInput in list(StepData)):
+                Index2 = list(StepData).index(SecondInput)
+            else:
+                while (SecondInput in list(StepData)) == False:
+                    dateArray = SecondInput.split('-')
+                    DayNum = int(dateArray[2])
+                    if DayNum == 31:
+                        DayNum = 1
+                    else:
+                        DayNum = DayNum + 1
+                        SecondInput = (dateArray[0] + '-' + dateArray[1] + '-' + str(DayNum).zfill(2))
+                Index2 = list(StepData).index(SecondInput)
+
         if Index > Index2:
             Value = list(StepData.values())[Index2]
             while Index2-1 < Index:
@@ -81,8 +92,10 @@ def BarChart():
     global High
     global Low
     global Open
-    bar_chart = pygal.Bar(spacing=100, fill=True, x_label_rotation=20)
-    bar_chart.title = (StockSymbol + ' Stock Data')
+    global Input
+    global SecondInput
+    bar_chart = pygal.Bar(spacing=100, fill=True, x_label_rotation=40)
+    bar_chart.title = ('Stock Data for '+ StockSymbol.upper() + ": " + Input +" to " + SecondInput)
     bar_chart.x_labels =('Red', 'Blue', 'Green', 'Yellow')
     bar_chart.x_labels = Date
     bar_chart.add('Open', Open)
@@ -98,8 +111,10 @@ def LineChart():
     global High
     global Low
     global Open
-    line_chart = pygal.Line(spacing=100, fill=False, x_label_rotation=20)
-    line_chart.title = (StockSymbol + ' Stock Data')
+    global Input
+    global SecondInput
+    line_chart = pygal.Line(spacing=100, fill=False, x_label_rotation=40)
+    line_chart.title = ('Stock Data for '+ StockSymbol.upper() + ": " + Input +" to " + SecondInput)
     line_chart.x_labels =('Red', 'Blue', 'Green', 'Yellow')
     line_chart.x_labels = Date
     line_chart.add('Open', Open)
@@ -113,6 +128,7 @@ def StockFunc():
     global ChartChoice
     global ChartType
     global Symbol
+    global StockSymbol
     global StockData
     global TimeSeries
     global StepData
@@ -122,7 +138,7 @@ def StockFunc():
     while StockData != "n":
             StockSymbol = input("Enter the stock symbol you are looking for: ")
             if StockSymbol == "":
-                print("Error Data Type Invalid")
+                print("No Data Entry")
             else:
                 Symbol = '&symbol='+ StockSymbol
                 print("Your Symbol was" + Symbol)
