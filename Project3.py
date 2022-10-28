@@ -1,4 +1,3 @@
-from glob import glob
 import requests
 import pygal
 import json
@@ -29,22 +28,54 @@ def PopChart():
     global Low
     global Open
 
-    Index = list(StepData).index(input('Please enter Start Date: '))
-    Index2 = list(StepData).index(input('Please enter End Date: '))
-    Value = list(StepData.values())[Index2]
-    while Index2-1 < Index:
-        Value = list(StepData.values())[Index2]
-        Date.append(str(list(StepData.keys())[Index2]))
-        Open.append(int(float(Value.get("1. open"))))
-        High.append(int(float(Value.get("2. high"))))
-        Low.append(int(float(Value.get("3. low"))))
-        Close.append(int(float(Value.get("4. close"))))
-        Index2 = Index2 + 1
-    Date.reverse()
-    Open.reverse()
-    High.reverse()
-    Low.reverse()
-    Close.reverse()
+    try:  
+        Input=(input('Please enter Start Date: '))
+        if (Input in list(StepData)):
+            Index = list(StepData).index(Input)
+            print("Element Exists")
+        else:
+            while (Input in list(StepData)) == False:
+                dateArray = Input.split('-')
+                dateNum = int(dateArray[2])
+                if dateNum == 31:
+                    dateNum = 1
+                else:
+                    dateNum = dateNum + 1
+                    Input = (dateArray[0] + '-' + dateArray[1] + '-' + str(dateNum).zfill(2))
+            Index = list(StepData).index(Input)
+        SecondInput=(input('Please enter End Date: '))
+        if (SecondInput in list(StepData)):
+            Index2 = list(StepData).index(SecondInput)
+            print("Element Exists")
+        else:
+            while (SecondInput in list(StepData)) == False:
+                dateArray = SecondInput.split('-')
+                dateNum = int(dateArray[2])
+                if dateNum == 31:
+                    dateNum = 1
+                else:
+                    dateNum = dateNum + 1
+                    SecondInput = (dateArray[0] + '-' + dateArray[1] + '-' + str(dateNum).zfill(2))
+            Index2 = list(StepData).index(SecondInput)
+        if Index > Index2:
+            Value = list(StepData.values())[Index2]
+            while Index2-1 < Index:
+                Value = list(StepData.values())[Index2]
+                Date.append(str(list(StepData.keys())[Index2]))
+                Open.append(int(float(Value.get("1. open"))))
+                High.append(int(float(Value.get("2. high"))))
+                Low.append(int(float(Value.get("3. low"))))
+                Close.append(int(float(Value.get("4. close"))))
+                Index2 = Index2 + 1
+            Date.reverse()
+            Open.reverse()
+            High.reverse()
+            Low.reverse()
+            Close.reverse()
+        else:
+           print('Error Start Date must be eariler than End Date please re-enter: ')
+    except:
+     print('error with Data Entry')
 def BarChart():
     global StockSymbol
     global Close
@@ -53,7 +84,7 @@ def BarChart():
     global Low
     global Open
     bar_chart = pygal.Bar(spacing=100, fill=True, x_label_rotation=20)
-    bar_chart.title = (StockSymbol +' Stock Data')
+    bar_chart.title = (StockSymbol + ' Stock Data')
     bar_chart.x_labels =('Red', 'Blue', 'Green', 'Yellow')
     bar_chart.x_labels = Date
     bar_chart.add('Open', Open)
@@ -61,6 +92,7 @@ def BarChart():
     bar_chart.add('Low', Low)
     bar_chart.add('close', Close)
     bar_chart.render_in_browser()
+
 def LineChart():
     global StockSymbol
     global Close
@@ -69,7 +101,7 @@ def LineChart():
     global Low
     global Open
     line_chart = pygal.Line(spacing=100, fill=False, x_label_rotation=20)
-    line_chart.title = (StockSymbol +' Stock Data')
+    line_chart.title = (StockSymbol + ' Stock Data')
     line_chart.x_labels =('Red', 'Blue', 'Green', 'Yellow')
     line_chart.x_labels = Date
     line_chart.add('Open', Open)
@@ -77,6 +109,35 @@ def LineChart():
     line_chart.add('Low', Low)
     line_chart.add('close', Close)
     line_chart.render_in_browser()
+
+
+def getStartDate(data, startDate):
+    try:
+        return list(data).index(startDate)
+    except:
+        dateArray = startDate.split('-')
+        dateNum = int(dateArray[2])
+        if dateNum == 31:
+            dateNum = 1
+        else:
+            dateNum = dateNum + 1
+        getStartDate(data, dateArray[0] + '-' + dateArray[1] + '-' + str(dateNum))
+
+def getEndDate(data, endDate):
+    try:
+        return list(data).index(endDate)
+    except:
+        dateArray = endDate.split('-')
+        dateNum = int(dateArray[2])
+        if dateNum == 1:
+            dateNum = 31
+        else:
+            dateNum = dateNum - 1
+        getEndDate(data, dateArray[0] + '-' + dateArray[1] + '-' + str(dateNum))
+        
+#How to use:
+# Index = list(StepData).index(getStartDate(StepData, input('Please enter Start Date: ')))
+# Index2 = list(StepData).index(getEndDate(StepData, input('Please enter End Date: ')))
 def StockFunc():
     
     global ChartChoice
@@ -225,4 +286,5 @@ def StockFunc():
                 High.clear()
                 Low.clear()
                 Open.clear()
+
 StockFunc()
