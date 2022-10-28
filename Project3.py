@@ -32,42 +32,48 @@ def PopChartIntra():
         DateInfo=(input('Please enter Start Date (YYYY-MM-DD): '))
         HourInfo=(input('Please enter Start Time (HH:MM:SS): '))
         Input = str(DateInfo+ " "+ HourInfo)
-        print(Input)
         while Input =="":
             Input=(input('Please enter Start Date (YYYY-MM-DD): '))
         if (Input in list(StepData)):
             Index = list(StepData).index(Input)
-            print('Entry Found')
         else:
             while (Input in list(StepData)) == False:
-                HourArray = Input.split(':')
+                HourArray = HourInfo.split(':')
+                HourNum=int(HourArray[0])
                 MinNum = int(HourArray[1])
-                if MinNum == 60:
-                    MinNum = 1
+                if MinNum == 00:
+                    HourNum = HourNum-1
+                    MinNum = 60
+                    HourInfo = (str(HourNum).zfill(2) + ':' + str(MinNum).zfill(2)+ ':' + HourArray[2])
+                    Input = str(DateInfo+ " "+ HourInfo)
                 else:
-                    MinNum = MinNum + 1
-                    Input = (HourArray[0]+ ':' + str(MinNum).zfill(2)+ ':' + HourArray[2])
+                    MinNum = MinNum -1
+                    HourInfo = (str(HourNum).zfill(2) + ':' + str(MinNum).zfill(2)+ ':' + HourArray[2])
+                    Input = (DateInfo+ " "+ str(HourNum)+ ':' + str(MinNum).zfill(2)+ ':' + HourArray[2])
             Index = list(StepData).index(Input)
 
-        DateInfo=(input('Please enter Start Date (YYYY-MM-DD): '))
-        HourInfo=(input('Please enter Start Time (HH:MM:SS): '))
+        DateInfo=(input('Please enter End Date (YYYY-MM-DD): '))
+        HourInfo=(input('Please enter End Time (HH:MM:SS): '))
         SecondInput = str(DateInfo+ " "+ HourInfo)
         print(SecondInput)
         while SecondInput =="":
-            SecondInput=(input('Please enter Start Date (YYYY-MM-DD): '))
+            SecondInput=(input('Please enter End Date (YYYY-MM-DD): '))
         if (SecondInput in list(StepData)):
             Index2 = list(StepData).index(SecondInput)
-            print('Entry Found')
         else:
             while (SecondInput in list(StepData)) == False:
-                HourArray = SecondInput.split(':')
+                HourArray = HourInfo.split(':')
+                HourNum=int(HourArray[0])
                 MinNum = int(HourArray[1])
-                if MinNum == 60:
-                    MinNum = 1
+                if MinNum == 59:
+                    HourNum = HourNum+1
+                    MinNum = 0
+                    HourInfo = (str(HourNum).zfill(2) + ':' + str(MinNum).zfill(2)+ ':' + HourArray[2])
+                    SecondInput = str(DateInfo+ " "+ HourInfo)
                 else:
                     MinNum = MinNum + 1
-                    SecondInput = (HourArray[0]+ ':' + str(MinNum).zfill(2)+ ':' + HourArray[2])
-                print(SecondInput)
+                    HourInfo = (str(HourNum).zfill(2) + ':' + str(MinNum).zfill(2)+ ':' + HourArray[2])
+                    SecondInput = (DateInfo+ " " + str(HourNum)+ ':' + str(MinNum).zfill(2)+ ':' + HourArray[2])
         Index2 = list(StepData).index(SecondInput)
 
         if Index > Index2:
@@ -259,6 +265,13 @@ def StockFunc():
                                         break
                                         
                                     elif TimeSeries == 4:
+                                        print("Select the Intevals you want your chart to generate")
+                                        print("-----------------------")
+                                        print("1. 1 Minute")
+                                        print("2. 5 Minute")
+                                        print("3. 15 Minute")
+                                        print("4. 30 Minute")   
+                                        print("5. 60 Minute") 
                                         IntervalSeries = int(input("Enter time series option (1, 2, 3, 4, 5): "))
                                         while IntervalSeries != 1 and IntervalSeries != 2 and IntervalSeries != 3 and IntervalSeries != 4 and IntervalSeries != 5:
                                             try:
@@ -362,17 +375,23 @@ def StockFunc():
                                         PopChart()
                                         LineChart()
                                     elif TimeSeries == 4:
-                                        IntervalSeries = int(input("Enter time series option (1, 2, 3, 4): "))
+                                        print("Select the Intevals you want your chart to generate")
+                                        print("-----------------------")
+                                        print("1. 1 Minute")
+                                        print("2. 5 Minute")
+                                        print("3. 15 Minute")
+                                        print("4. 30 Minute")   
+                                        print("5. 60 Minute") 
+                                        IntervalSeries = int(input("Enter time series option (1, 2, 3, 4, 5): "))
                                         while IntervalSeries != 1 and IntervalSeries != 2 and IntervalSeries != 3 and IntervalSeries != 4 and IntervalSeries != 5:
                                             try:
-                                                
                                                 print("Select the Intevals you want your chart to generate")
                                                 print("-----------------------")
                                                 print("1. 1 Minute")
                                                 print("2. 5 Minute")
                                                 print("3. 15 Minute")
                                                 print("4. 30 Minute")   
-                                                print("4. 60 Minute") 
+                                                print("5. 60 Minute") 
                                             except:
                                                 print("Data Error")   
                                         if IntervalSeries == 1:
