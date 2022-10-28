@@ -20,7 +20,75 @@ StepData = ""
 IntraInterval = ['interval=1min','interval=5min','interval=15min','interval=30min','interval=60min']
 def PopChartIntra():
     global StepData
-    print(StepData)
+    global Close
+    global Date
+    global High
+    global Low
+    global Open
+    global Input
+    global SecondInput
+
+    try: 
+        DateInfo=(input('Please enter Start Date (YYYY-MM-DD): '))
+        HourInfo=(input('Please enter Start Time (HH:MM:SS): '))
+        Input = str(DateInfo+ " "+ HourInfo)
+        print(Input)
+        while Input =="":
+            Input=(input('Please enter Start Date (YYYY-MM-DD): '))
+        if (Input in list(StepData)):
+            Index = list(StepData).index(Input)
+            print('Entry Found')
+        else:
+            while (Input in list(StepData)) == False:
+                HourArray = Input.split(':')
+                MinNum = int(HourArray[1])
+                if MinNum == 60:
+                    MinNum = 1
+                else:
+                    MinNum = MinNum + 1
+                    Input = (HourArray[0]+ ':' + str(MinNum).zfill(2)+ ':' + HourArray[2])
+            Index = list(StepData).index(Input)
+
+        DateInfo=(input('Please enter Start Date (YYYY-MM-DD): '))
+        HourInfo=(input('Please enter Start Time (HH:MM:SS): '))
+        SecondInput = str(DateInfo+ " "+ HourInfo)
+        print(SecondInput)
+        while SecondInput =="":
+            SecondInput=(input('Please enter Start Date (YYYY-MM-DD): '))
+        if (SecondInput in list(StepData)):
+            Index2 = list(StepData).index(SecondInput)
+            print('Entry Found')
+        else:
+            while (SecondInput in list(StepData)) == False:
+                HourArray = SecondInput.split(':')
+                MinNum = int(HourArray[1])
+                if MinNum == 60:
+                    MinNum = 1
+                else:
+                    MinNum = MinNum + 1
+                    SecondInput = (HourArray[0]+ ':' + str(MinNum).zfill(2)+ ':' + HourArray[2])
+                print(SecondInput)
+        Index2 = list(StepData).index(SecondInput)
+
+        if Index > Index2:
+            Value = list(StepData.values())[Index2]
+            while Index2-1 < Index:
+                Value = list(StepData.values())[Index2]
+                Date.append(str(list(StepData.keys())[Index2]))
+                Open.append(int(float(Value.get("1. open"))))
+                High.append(int(float(Value.get("2. high"))))
+                Low.append(int(float(Value.get("3. low"))))
+                Close.append(int(float(Value.get("4. close"))))
+                Index2 = Index2 + 1
+            Date.reverse()
+            Open.reverse()
+            High.reverse()
+            Low.reverse()
+            Close.reverse()
+        else:
+           print('Error Start Date must be eariler than End Date please re-enter: ')
+    except:
+     print('error with Data Entry')
     
 def PopChart():
     global StepData
