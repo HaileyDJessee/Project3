@@ -17,7 +17,11 @@ StockSymbol = ""
 Symbol = ""
 TimeSeries = 0
 StepData = ""
-
+IntraInterval = ['interval=1min','interval=5min','interval=15min','interval=30min','interval=60min']
+def PopChartIntra():
+    global StepData
+    print(StepData)
+    
 def PopChart():
     global StepData
     global Close
@@ -187,13 +191,65 @@ def StockFunc():
                                         break
                                         
                                     elif TimeSeries == 4:
-                                        URL = 'https://www.alphavantage.co/query?'+ Function[TimeSeries-1] +'&interval=30min'+ Symbol +'&apikey=7CKUYMD19R6Q9LKW'
-                                        DataDic = requests.get(URL)
-                                        data = DataDic.json()
-                                        StepData = data['Time Series (30min)']
-                                        PopChart()
-                                        BarChart()
-                                        break
+                                        IntervalSeries = int(input("Enter time series option (1, 2, 3, 4, 5): "))
+                                        while IntervalSeries != 1 and IntervalSeries != 2 and IntervalSeries != 3 and IntervalSeries != 4 and IntervalSeries != 5:
+                                            try:
+                                                print("Select the Intevals you want your chart to generate")
+                                                print("-----------------------")
+                                                print("1. 1 Minute")
+                                                print("2. 5 Minute")
+                                                print("3. 15 Minute")
+                                                print("4. 30 Minute")   
+                                                print("4. 60 Minute") 
+                                            except:
+                                                print("Data Error")   
+                                        if IntervalSeries == 1:
+                                            print('got here')
+                                            URL = 'https://www.alphavantage.co/query?'+ Function[TimeSeries-1]+'&'+IntraInterval[IntervalSeries-1] + Symbol +'&apikey=7CKUYMD19R6Q9LKW'
+                                            DataDic = requests.get(URL)
+                                            data = DataDic.json()
+                                            print(URL)
+                                            StepData = data['Time Series (1min)']
+                                            PopChartIntra()
+                                            BarChart()
+                                            break
+
+                                        elif IntervalSeries == 2:
+                                            URL = 'https://www.alphavantage.co/query?'+ Function[TimeSeries-1]+'&'+IntraInterval[IntervalSeries-1] +  Symbol +'&apikey=7CKUYMD19R6Q9LKW'
+                                            DataDic = requests.get(URL)
+                                            data = DataDic.json()
+                                            print(URL)
+                                            StepData = data['Time Series (5min)']
+                                            PopChartIntra()
+                                            BarChart()
+                                            break
+
+                                        elif IntervalSeries == 3:
+                                            URL = 'https://www.alphavantage.co/query?'+ Function[TimeSeries-1] +'&'+IntraInterval[IntervalSeries-1] + Symbol +'&apikey=7CKUYMD19R6Q9LKW'
+                                            DataDic = requests.get(URL)
+                                            data = DataDic.json()
+                                            print(URL)
+                                            StepData = data['Time Series (15min)']
+                                            PopChartIntra()
+                                            BarChart()
+                                        elif IntervalSeries == 4:
+                                            URL = 'https://www.alphavantage.co/query?'+ Function[TimeSeries-1] +'&'+IntraInterval[IntervalSeries-1] + Symbol +'&apikey=7CKUYMD19R6Q9LKW'
+                                            DataDic = requests.get(URL)
+                                            data = DataDic.json()
+                                            print(URL)
+                                            StepData = data['Time Series (30min)']
+                                            PopChartIntra()
+                                            BarChart()
+                                            break
+                                        elif IntervalSeries == 5:
+                                            URL = 'https://www.alphavantage.co/query?'+ Function[TimeSeries-1] +'&'+IntraInterval[IntervalSeries-1] + Symbol +'&apikey=7CKUYMD19R6Q9LKW'
+                                            DataDic = requests.get(URL)
+                                            data = DataDic.json()
+                                            print(URL)
+                                            StepData = data['Time Series (60min)']
+                                            PopChartIntra()
+                                            BarChart()
+                                            break
                                 except:
                                     print("Select the Time Series of the chart you want to Generate")
                                     print("-----------------------")
@@ -226,7 +282,7 @@ def StockFunc():
                                         DataDic = requests.get(URL)
                                         data = DataDic.json()
                                         StepData = data['Weekly Time Series']
-                                        PopChart
+                                        PopChart()
                                         LineChart()
                                         break
 
@@ -238,13 +294,66 @@ def StockFunc():
                                         PopChart()
                                         LineChart()
                                     elif TimeSeries == 4:
-                                        URL = 'https://www.alphavantage.co/query?'+ Function[TimeSeries-1] +'&interval=30min'+ Symbol +'&apikey=7CKUYMD19R6Q9LKW'
-                                        DataDic = requests.get(URL)
-                                        data = DataDic.json()
-                                        StepData = data['Time Series (30min)']
-                                        PopChart()
-                                        LineChart()
-                                        break
+                                        IntervalSeries = int(input("Enter time series option (1, 2, 3, 4): "))
+                                        while IntervalSeries != 1 and IntervalSeries != 2 and IntervalSeries != 3 and IntervalSeries != 4 and IntervalSeries != 5:
+                                            try:
+                                                
+                                                print("Select the Intevals you want your chart to generate")
+                                                print("-----------------------")
+                                                print("1. 1 Minute")
+                                                print("2. 5 Minute")
+                                                print("3. 15 Minute")
+                                                print("4. 30 Minute")   
+                                                print("4. 60 Minute") 
+                                            except:
+                                                print("Data Error")   
+                                        if IntervalSeries == 1:
+                                            URL = 'https://www.alphavantage.co/query?'+ Function[TimeSeries-1]+'&'+IntraInterval[IntervalSeries-1] + Symbol +'&apikey=7CKUYMD19R6Q9LKW'
+                                            DataDic = requests.get(URL)
+                                            data = DataDic.json()
+                                            print(URL)
+                                            StepData = data['Time Series (1min)']
+                                            PopChartIntra()
+                                            LineChart()
+                                            break
+
+                                        elif IntervalSeries == 2:
+                                            URL = 'https://www.alphavantage.co/query?'+ Function[TimeSeries-1]+'&'+IntraInterval[IntervalSeries-1] +  Symbol +'&apikey=7CKUYMD19R6Q9LKW'
+                                            DataDic = requests.get(URL)
+                                            data = DataDic.json()
+                                            print(URL)
+                                            StepData = data['Time Series (5min)']
+                                            PopChartIntra()
+                                            LineChart()
+                                            break
+
+                                        elif IntervalSeries == 3:
+                                            URL = 'https://www.alphavantage.co/query?'+ Function[TimeSeries-1] +'&'+IntraInterval[IntervalSeries-1] + Symbol +'&apikey=7CKUYMD19R6Q9LKW'
+                                            DataDic = requests.get(URL)
+                                            data = DataDic.json()
+                                            print(URL)
+                                            StepData = data['Time Series (15min)']
+                                            PopChartIntra()
+                                            LineChart()
+                                        elif IntervalSeries == 4:
+                                            URL = 'https://www.alphavantage.co/query?'+ Function[TimeSeries-1] +'&'+IntraInterval[IntervalSeries-1] + Symbol +'&apikey=7CKUYMD19R6Q9LKW'
+                                            DataDic = requests.get(URL)
+                                            data = DataDic.json()
+                                            print(URL)
+                                            StepData = data['Time Series (30min)']
+                                            PopChartIntra()
+                                            LineChart()
+                                            break
+                                        elif IntervalSeries == 5:
+                                            URL = 'https://www.alphavantage.co/query?'+ Function[TimeSeries-1] +'&'+IntraInterval[IntervalSeries-1] + Symbol +'&apikey=7CKUYMD19R6Q9LKW'
+                                            DataDic = requests.get(URL)
+                                            data = DataDic.json()
+                                            print(URL)
+                                            StepData = data['Time Series (60min)']
+                                            PopChartIntra()
+                                            LineChart()
+                                            break
+                                            
                                 except:
                                     print("Select the Time Series of the chart you want to Generate")
                                     print("-----------------------")
