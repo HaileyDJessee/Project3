@@ -41,15 +41,16 @@ def PopChartIntra():
                 HourArray = HourInfo.split(':')
                 HourNum=int(HourArray[0])
                 MinNum = int(HourArray[1])
-                if MinNum == 00:
-                    HourNum = HourNum-1
-                    MinNum = 60
+                if MinNum == 60:
+                    HourNum = HourNum+1
+                    MinNum = 00
                     HourInfo = (str(HourNum).zfill(2) + ':' + str(MinNum).zfill(2)+ ':' + HourArray[2])
                     Input = str(DateInfo+ " "+ HourInfo)
                 else:
-                    MinNum = MinNum -1
+                    MinNum = MinNum +1
                     HourInfo = (str(HourNum).zfill(2) + ':' + str(MinNum).zfill(2)+ ':' + HourArray[2])
                     Input = (DateInfo+ " "+ str(HourNum)+ ':' + str(MinNum).zfill(2)+ ':' + HourArray[2])
+                
             Index = list(StepData).index(Input)
 
         DateInfo=(input('Please enter End Date (YYYY-MM-DD): '))
@@ -65,13 +66,13 @@ def PopChartIntra():
                 HourArray = HourInfo.split(':')
                 HourNum=int(HourArray[0])
                 MinNum = int(HourArray[1])
-                if MinNum == 59:
-                    HourNum = HourNum+1
-                    MinNum = 0
+                if MinNum == 00:
+                    HourNum = HourNum-1
+                    MinNum = 60
                     HourInfo = (str(HourNum).zfill(2) + ':' + str(MinNum).zfill(2)+ ':' + HourArray[2])
                     SecondInput = str(DateInfo+ " "+ HourInfo)
                 else:
-                    MinNum = MinNum + 1
+                    MinNum = MinNum - 1
                     HourInfo = (str(HourNum).zfill(2) + ':' + str(MinNum).zfill(2)+ ':' + HourArray[2])
                     SecondInput = (DateInfo+ " " + str(HourNum)+ ':' + str(MinNum).zfill(2)+ ':' + HourArray[2])
         Index2 = list(StepData).index(SecondInput)
@@ -119,11 +120,13 @@ def PopChart():
                 while (Input in list(StepData)) == False:
                     dateArray = Input.split('-')
                     DayNum = int(dateArray[2])
+                    MonthNum=int(dateArray[1])
                     if DayNum == 31:
-                        DayNum = 1
+                        DayNum = 0
+                        MonthNum= MonthNum+1
                     else:
                         DayNum = DayNum + 1
-                        Input = (dateArray[0] + '-' + dateArray[1] + '-' + str(DayNum).zfill(2))
+                        Input = (dateArray[0] + '-' + str(MonthNum).zfill(2) + '-' + str(DayNum).zfill(2))
                 Index = list(StepData).index(Input)
         SecondInput=(input('Please enter End Date (YYYY-MM-DD): '))
         while SecondInput =="":
@@ -137,11 +140,12 @@ def PopChart():
                 while (SecondInput in list(StepData)) == False:
                     dateArray = SecondInput.split('-')
                     DayNum = int(dateArray[2])
-                    if DayNum == 31:
-                        DayNum = 1
+                    if DayNum == 00:
+                        DayNum = 31
+                        MonthNum= MonthNum-1
                     else:
-                        DayNum = DayNum + 1
-                        SecondInput = (dateArray[0] + '-' + dateArray[1] + '-' + str(DayNum).zfill(2))
+                        DayNum = DayNum - 1
+                        SecondInput = (dateArray[0] + '-' + str(MonthNum).zfill(2) + '-' + str(DayNum).zfill(2))
                 Index2 = list(StepData).index(SecondInput)
 
         if Index > Index2:
@@ -285,7 +289,6 @@ def StockFunc():
                                             except:
                                                 print("Data Error")   
                                         if IntervalSeries == 1:
-                                            print('got here')
                                             URL = 'https://www.alphavantage.co/query?'+ Function[TimeSeries-1]+'&'+IntraInterval[IntervalSeries-1] + Symbol +'&apikey=7CKUYMD19R6Q9LKW'
                                             DataDic = requests.get(URL)
                                             data = DataDic.json()
@@ -439,8 +442,7 @@ def StockFunc():
                                             StepData = data['Time Series (60min)']
                                             PopChartIntra()
                                             LineChart()
-                                            break
-                                            
+                                            break    
                                 except:
                                     print("Select the Time Series of the chart you want to Generate")
                                     print("-----------------------")
