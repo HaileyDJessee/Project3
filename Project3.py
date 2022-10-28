@@ -120,11 +120,13 @@ def PopChart():
                 while (Input in list(StepData)) == False:
                     dateArray = Input.split('-')
                     DayNum = int(dateArray[2])
-                    MonthNum=int(dateArray[1])
+                    MonthNum = int(dateArray[1])
                     if DayNum == 31:
                         DayNum = 0
-                        MonthNum= MonthNum+1
+                        MonthNum = MonthNum + 1
+                        Input = (dateArray[0] + '-' + str(MonthNum).zfill(2) + '-' + str(DayNum).zfill(2))
                     else:
+                
                         DayNum = DayNum + 1
                         Input = (dateArray[0] + '-' + str(MonthNum).zfill(2) + '-' + str(DayNum).zfill(2))
                 Index = list(StepData).index(Input)
@@ -140,9 +142,11 @@ def PopChart():
                 while (SecondInput in list(StepData)) == False:
                     dateArray = SecondInput.split('-')
                     DayNum = int(dateArray[2])
+                    MonthNum = int(dateArray[1])
                     if DayNum == 00:
                         DayNum = 31
-                        MonthNum= MonthNum-1
+                        MonthNum = MonthNum - 1
+                        SecondInput = (dateArray[0] + '-' + str(MonthNum).zfill(2) + '-' + str(DayNum).zfill(2))
                     else:
                         DayNum = DayNum - 1
                         SecondInput = (dateArray[0] + '-' + str(MonthNum).zfill(2) + '-' + str(DayNum).zfill(2))
@@ -206,7 +210,6 @@ def LineChart():
     line_chart.render_in_browser()
 
 def StockFunc():
-    
     global ChartChoice
     global ChartType
     global Symbol
@@ -316,6 +319,8 @@ def StockFunc():
                                             StepData = data['Time Series (15min)']
                                             PopChartIntra()
                                             BarChart()
+                                            break
+
                                         elif IntervalSeries == 4:
                                             URL = 'https://www.alphavantage.co/query?'+ Function[TimeSeries-1] +'&'+IntraInterval[IntervalSeries-1] + Symbol +'&apikey=7CKUYMD19R6Q9LKW'
                                             DataDic = requests.get(URL)
@@ -325,6 +330,7 @@ def StockFunc():
                                             PopChartIntra()
                                             BarChart()
                                             break
+
                                         elif IntervalSeries == 5:
                                             URL = 'https://www.alphavantage.co/query?'+ Function[TimeSeries-1] +'&'+IntraInterval[IntervalSeries-1] + Symbol +'&apikey=7CKUYMD19R6Q9LKW'
                                             DataDic = requests.get(URL)
@@ -425,6 +431,8 @@ def StockFunc():
                                             StepData = data['Time Series (15min)']
                                             PopChartIntra()
                                             LineChart()
+                                            break
+
                                         elif IntervalSeries == 4:
                                             URL = 'https://www.alphavantage.co/query?'+ Function[TimeSeries-1] +'&'+IntraInterval[IntervalSeries-1] + Symbol +'&apikey=7CKUYMD19R6Q9LKW'
                                             DataDic = requests.get(URL)
@@ -434,6 +442,7 @@ def StockFunc():
                                             PopChartIntra()
                                             LineChart()
                                             break
+                                        
                                         elif IntervalSeries == 5:
                                             URL = 'https://www.alphavantage.co/query?'+ Function[TimeSeries-1] +'&'+IntraInterval[IntervalSeries-1] + Symbol +'&apikey=7CKUYMD19R6Q9LKW'
                                             DataDic = requests.get(URL)
